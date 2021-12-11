@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_hackathon_project/models/form_reply.dart';
 import 'package:gdsc_hackathon_project/models/question.dart';
-import 'package:gdsc_hackathon_project/widgets/text_field.dart';
 import 'package:provider/provider.dart';
 
 class NormalQuestion extends StatelessWidget {

@@ -8,9 +8,9 @@ import 'package:gdsc_hackathon_project/screens/admin/create_form.dart';
 import 'package:gdsc_hackathon_project/screens/common/edit_profile.dart';
 import 'package:gdsc_hackathon_project/screens/common/events.dart';
 import 'package:gdsc_hackathon_project/screens/common/forms.dart';
-import 'package:gdsc_hackathon_project/screens/student/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:gdsc_hackathon_project/models/user.dart' as user;
+import 'package:gdsc_hackathon_project/providers/selector.dart' as selector;
 // import 'events.dart';
 import '../common/forms.dart';
 
@@ -22,46 +22,46 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<BnbItemSelector>(
-          create: (_) => BnbItemSelector(),
+        ChangeNotifierProvider<selector.Selector<int>>(
+          create: (_) => selector.Selector<int>(0),
         ),
         Provider<user.User>(create: (_) => currentUser)
       ],
       builder: (_, __) {
         return Scaffold(
           appBar: AppBar(
-            leading: SizedBox(),
+            leading: const SizedBox(),
             leadingWidth: 0,
-            title: Text("IIITB Events"),
+            title: const Text("IIITB Events"),
             actions: [
               IconButton(
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                 },
-                icon: Icon(Icons.logout),
+                icon: const Icon(Icons.logout),
               ),
             ],
           ),
-          body: Consumer<BnbItemSelector>(
+          body: Consumer<selector.Selector<int>>(
             builder: (_, bnbItemSelector, __) {
-              switch (bnbItemSelector.index) {
+              switch (bnbItemSelector.val) {
                 case 0:
-                  return Events();
+                  return const Events();
                 case 1:
                   return const Forms();
                 default:
-                  return EditProfile();
+                  return const EditProfile();
               }
             },
           ),
-          floatingActionButton:
-              Consumer<BnbItemSelector>(builder: (_, bnbItemSelector, __) {
-            return bnbItemSelector.index == 2
+          floatingActionButton: Consumer<selector.Selector<int>>(
+              builder: (_, bnbItemSelector, __) {
+            return bnbItemSelector.val == 2
                 ? const SizedBox()
                 : FloatingActionButton(
                     child: const Icon(Icons.add),
                     onPressed: () {
-                      if (bnbItemSelector.index == 0) {
+                      if (bnbItemSelector.val == 0) {
                         NavigationHelper.push(context, const CreateEvent());
                       } else {
                         NavigationHelper.push(context, const CreateForm());
@@ -69,11 +69,11 @@ class MainScreen extends StatelessWidget {
                     },
                   );
           }),
-          bottomNavigationBar: Consumer<BnbItemSelector>(
+          bottomNavigationBar: Consumer<selector.Selector<int>>(
             builder: (_, bnbItemSelector, __) {
               return BottomNavigationBar(
-                currentIndex: bnbItemSelector.index,
-                onTap: bnbItemSelector.updateIndex,
+                currentIndex: bnbItemSelector.val,
+                onTap: bnbItemSelector.update,
                 items: const [
                   BottomNavigationBarItem(
                       icon: Icon(Icons.event), label: "Events"),

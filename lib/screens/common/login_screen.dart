@@ -1,12 +1,6 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
-import 'package:gdsc_hackathon_project/functions/navigation.dart';
-import 'package:gdsc_hackathon_project/screens/common/forgot_password.dart';
-import 'package:gdsc_hackathon_project/screens/student/main_screen.dart';
-import 'package:gdsc_hackathon_project/screens/common/register_screen.dart';
-import 'package:gdsc_hackathon_project/widgets/text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -106,9 +100,6 @@ class _LoginScreenState extends State<LoginScreen> {
         error += (e as FirebaseAuthException).message!;
       }
       return error;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.red,
-          content: Text("Some error occured. $error")));
     }
   }
 }

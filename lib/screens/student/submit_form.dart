@@ -10,7 +10,8 @@ import 'package:gdsc_hackathon_project/widgets/question_view.dart';
 import 'package:provider/provider.dart';
 
 class SubmitForm extends StatelessWidget {
-  SubmitForm({Key? key, required this.form, this.formReply1}) : super(key: key);
+  const SubmitForm({Key? key, required this.form, this.formReply1})
+      : super(key: key);
   final frm.Form form;
   final FormReply? formReply1;
   @override
@@ -27,7 +28,7 @@ class SubmitForm extends StatelessWidget {
                   onPressed: formReply1 != null
                       ? null
                       : () async => await submitForm(ctx),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.done,
                   ),
                 ),
@@ -50,13 +51,13 @@ class SubmitForm extends StatelessWidget {
                                   form.title,
                                   style: Theme.of(context).textTheme.headline4,
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(form.description),
                               ],
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         QuestionView(form: form)
                       ],
                     )),
@@ -71,7 +72,6 @@ class SubmitForm extends StatelessWidget {
   Future<void> submitForm(context) async {
     final FormReply formReply = Provider.of<FormReply>(context, listen: false);
     bool flag = true;
-    print(formReply.replies);
     for (Question question in form.questions) {
       if (question.mandatory) {
         switch (question.questionType) {
@@ -79,21 +79,18 @@ class SubmitForm extends StatelessWidget {
             if ((formReply.replies[question.id] ?? '').isNotEmpty) {
               break;
             }
-            print(question);
             flag = false;
             break;
           case QuestionType.RadioButton:
             if ((formReply.replies[question.id] ?? '').isNotEmpty) {
               break;
             }
-            print(question);
             flag = false;
             break;
           default:
             if ((formReply.replies[question.id] ?? <String>{}).isNotEmpty) {
               break;
             }
-            print(question);
             flag = false;
             break;
         }

@@ -4,7 +4,6 @@ import 'package:gdsc_hackathon_project/enums/question_type.dart';
 import 'package:gdsc_hackathon_project/models/form.dart' as frm;
 import 'package:gdsc_hackathon_project/models/form_reply.dart';
 import 'package:pie_chart/pie_chart.dart';
-import 'package:gdsc_hackathon_project/models/option.dart';
 
 class FormAnalysis extends StatelessWidget {
   final frm.Form form;
@@ -55,7 +54,6 @@ class FormAnalysis extends StatelessWidget {
               },
             );
           }
-          print(cnt);
           return ListView.builder(
               // shrinkWrap: true,
               padding: const EdgeInsets.all(15),

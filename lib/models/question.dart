@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gdsc_hackathon_project/enums/question_type.dart';
 
 import 'option.dart';

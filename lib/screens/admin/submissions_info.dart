@@ -6,7 +6,6 @@ import 'package:gdsc_hackathon_project/functions/navigation.dart';
 import 'package:gdsc_hackathon_project/models/form.dart' as frm;
 import 'package:gdsc_hackathon_project/models/form_reply.dart';
 import 'package:gdsc_hackathon_project/models/user.dart';
-import 'package:gdsc_hackathon_project/screens/admin/show_submission.dart';
 import 'package:gdsc_hackathon_project/screens/student/submit_form.dart';
 
 import 'form_analysis.dart';
@@ -66,9 +65,6 @@ class SubmissionsInfo extends StatelessWidget {
                   users[a.uid]!.userType.index > users[b.uid]!.userType.index
                       ? 1
                       : 0);
-              Map<String, FormReply> formRepliesMap = {
-                for (var element in formReplies) element.uid: element
-              };
               return ListView.builder(
                   itemCount: formReplies.length + 1,
                   itemBuilder: (_, i) {
@@ -79,7 +75,8 @@ class SubmissionsInfo extends StatelessWidget {
                           child: Text(
                             'Total submissions: ${formReplies.length}, Remaining submissions: ${usersList.where((element) => formReplies.contains(element) == false && element.userType == UserType.Student).toList().length - formReplies.length}',
                             maxLines: 3,
-                            style: TextStyle(overflow: TextOverflow.ellipsis),
+                            style: const TextStyle(
+                                overflow: TextOverflow.ellipsis),
                           ),
                         ),
                       );

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_hackathon_project/enums/question_type.dart';
 import 'package:gdsc_hackathon_project/models/form.dart' as frm;
-import 'package:gdsc_hackathon_project/models/form_reply.dart';
 import 'package:gdsc_hackathon_project/models/question.dart';
 import 'package:gdsc_hackathon_project/widgets/normal_question.dart';
-import 'package:gdsc_hackathon_project/widgets/text_field.dart';
-import 'package:provider/provider.dart';
 
 import 'checkbox_question_view.dart';
 import 'radio_button_question_view.dart';

@@ -12,7 +12,7 @@ class Events extends StatelessWidget {
       stream: FirebaseFirestore.instance.collection('events').snapshots(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         List<DocumentSnapshot<Map<String, dynamic>>> list = snapshot.data!.docs;
         list = list.reversed.toList();

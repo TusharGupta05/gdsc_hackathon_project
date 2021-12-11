@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:gdsc_hackathon_project/enums/question_type.dart';
 import 'package:gdsc_hackathon_project/models/question.dart';
 
@@ -32,7 +31,6 @@ class FormReply {
       default:
         break;
     }
-    print(replies);
   }
 
   FormReply(this.uid);

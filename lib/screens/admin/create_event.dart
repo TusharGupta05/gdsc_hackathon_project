@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,11 +8,12 @@ import 'package:gdsc_hackathon_project/functions/helper.dart';
 import 'package:gdsc_hackathon_project/functions/navigation.dart';
 import 'package:gdsc_hackathon_project/models/event.dart';
 import 'package:gdsc_hackathon_project/models/media.dart';
+import 'package:gdsc_hackathon_project/providers/media_list_provider.dart';
 import 'package:gdsc_hackathon_project/widgets/date_time_range_field.dart';
 import 'package:gdsc_hackathon_project/widgets/text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
-import 'package:intl/intl.dart';
+import 'package:gdsc_hackathon_project/providers/selector.dart' as selector;
 
 class CreateEvent extends StatefulWidget {
   const CreateEvent({Key? key}) : super(key: key);
@@ -33,10 +32,10 @@ class _CreateEventState extends State<CreateEvent> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MediaList<PlatformFile>([])),
-          ChangeNotifierProvider(
-              create: (_) => DateTimeRangeProvider(DateTimeRange(
+          ChangeNotifierProvider<selector.Selector<DateTimeRange>>(
+              create: (_) => selector.Selector<DateTimeRange>(DateTimeRange(
                   start: DateTime.now(),
-                  end: DateTime.now().add(Duration(days: 2))))),
+                  end: DateTime.now().add(const Duration(days: 2))))),
         ],
         builder: (_, __) {
           return Builder(builder: (context) {
@@ -47,24 +46,24 @@ class _CreateEventState extends State<CreateEvent> {
                 actions: [
                   IconButton(
                       onPressed: () async => await addEvent(context),
-                      icon: Icon(Icons.done))
+                      icon: const Icon(Icons.done))
                 ],
               ),
               body: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 children: [
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Form(
                       key: formState,
                       child: DateTimeRangePickerField(validator: (_) => null)),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextEditingField(
                     hintText: "Title",
                     controller: titleController,
                     maxLines: null,
                     borderRadius: 15,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextEditingField(
                     hintText: "Description",
                     controller: descriptionController,
@@ -72,10 +71,10 @@ class _CreateEventState extends State<CreateEvent> {
                     maxLines: null,
                     minLines: 8,
                   ),
-                  Spacer(),
-                  Align(
+                  const Spacer(),
+                  const Align(
                       alignment: Alignment.bottomCenter,
-                      child: const _MediaPreview()),
+                      child: _MediaPreview()),
                 ],
               ),
             );
@@ -107,7 +106,7 @@ class _CreateEventState extends State<CreateEvent> {
       List<String> urls =
           await Future.wait(refs.map((e) async => e.getDownloadURL()).toList());
       DateTimeRange dateTimeRange =
-          Provider.of<DateTimeRangeProvider>(ctx, listen: false).dateTimeRange;
+          Provider.of<selector.Selector<DateTimeRange>>(ctx, listen: false).val;
       NavigationHelper.pop(context);
       NavigationHelper.showLoader(context, message: "Creating Event....");
       Event event = Event(
@@ -172,7 +171,7 @@ class _MediaPreview extends StatelessWidget {
                       onPressed: () async =>
                           (await NavigationHelper.pickFiles())
                               .forEach(mediaList.add),
-                      icon: Icon(Icons.add)),
+                      icon: const Icon(Icons.add)),
                 )
               : Container(
                   padding: EdgeInsets.zero,
@@ -213,20 +212,6 @@ class _MediaPreview extends StatelessWidget {
         ),
       );
     });
-  }
-}
-
-class MediaList<T> extends ChangeNotifier {
-  List<T> mediaList;
-  MediaList(this.mediaList);
-  void add(T media) {
-    mediaList.add(media);
-    notifyListeners();
-  }
-
-  void remove(i) {
-    mediaList.removeAt(i);
-    notifyListeners();
   }
 }
 

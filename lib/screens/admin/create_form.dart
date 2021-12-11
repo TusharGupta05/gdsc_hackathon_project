@@ -8,6 +8,7 @@ import 'package:gdsc_hackathon_project/widgets/date_time_range_field.dart';
 import 'package:gdsc_hackathon_project/widgets/dynamic_radio_button_question_view.dart';
 import 'package:gdsc_hackathon_project/widgets/text_field.dart';
 import 'package:provider/provider.dart';
+import 'package:gdsc_hackathon_project/providers/selector.dart' as selector;
 
 class CreateForm extends StatefulWidget {
   const CreateForm({Key? key}) : super(key: key);
@@ -28,9 +29,9 @@ class _CreateFormState extends State<CreateForm> {
       providers: [
         ChangeNotifierProvider(create: (_) => WidgetsListProvider()),
         ChangeNotifierProvider(
-            create: (_) => DateTimeRangeProvider(DateTimeRange(
+            create: (_) => selector.Selector<DateTimeRange>(DateTimeRange(
                 start: DateTime.now(),
-                end: DateTime.now().add(Duration(days: 2)))))
+                end: DateTime.now().add(const Duration(days: 2)))))
       ],
       builder: (context, child) {
         return Builder(builder: (ctx) {
@@ -41,14 +42,15 @@ class _CreateFormState extends State<CreateForm> {
               actions: [
                 IconButton(
                     onPressed: () async => await createForm(ctx),
-                    icon: Icon(Icons.done))
+                    icon: const Icon(Icons.done))
               ],
             ),
             body: Scrollbar(
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
-                  child: Consumer2<WidgetsListProvider, DateTimeRangeProvider>(
+                  child: Consumer2<WidgetsListProvider,
+                      selector.Selector<DateTimeRange>>(
                     builder: (_, widgetsList, __, ___) {
                       return Column(
                         children: widgetsList.widgets,
@@ -97,9 +99,9 @@ class WidgetsListProvider extends ChangeNotifier {
       description = descriptionController.text;
     });
     widgets = [
-      Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: const Text(
+      const Padding(
+        padding: EdgeInsets.only(bottom: 10),
+        child: Text(
             'Instructions:\n1. Make sure you select the checkbox of the question if you want it to be mandatory.\n2. Add Normal Question if you want the students to type their reply.\n3. Add RadioButton Questions when you want the students to be able to select exactly one option.\n4. Add Checkbox Questions when you want the students to be able to select multiple options.'),
       ),
       Padding(
@@ -135,7 +137,7 @@ class WidgetsListProvider extends ChangeNotifier {
             notifyListeners();
           },
           child: Row(
-            children: [Icon(Icons.add), Text('Normal Question')],
+            children: const [Icon(Icons.add), Text('Normal Question')],
           ),
         ),
       ),
@@ -152,7 +154,7 @@ class WidgetsListProvider extends ChangeNotifier {
             notifyListeners();
           },
           child: Row(
-            children: [Icon(Icons.add), Text('Checkbox Question')],
+            children: const [Icon(Icons.add), Text('Checkbox Question')],
           ),
         ),
       ),
@@ -169,7 +171,7 @@ class WidgetsListProvider extends ChangeNotifier {
             notifyListeners();
           },
           child: Row(
-            children: [Icon(Icons.add), Text('RadioButton Question')],
+            children: const [Icon(Icons.add), Text('RadioButton Question')],
           ),
         ),
       ),
@@ -189,13 +191,13 @@ class WidgetsListProvider extends ChangeNotifier {
     ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
       content: Text(text),
       backgroundColor: Colors.red,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     ));
   }
 
   frm.Form? getForm(ctx) {
     final DateTimeRange dateTimeRange =
-        Provider.of<DateTimeRangeProvider>(ctx, listen: false).dateTimeRange;
+        Provider.of<selector.Selector<DateTimeRange>>(ctx, listen: false).val;
     if (title.isEmpty) {
       showSnackBar('Title should not be empty!', ctx);
       return null;

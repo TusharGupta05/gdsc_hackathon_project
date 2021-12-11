@@ -8,7 +8,6 @@ import 'package:gdsc_hackathon_project/screens/common/loading_screen.dart';
 import 'package:gdsc_hackathon_project/screens/common/register_info.dart';
 import 'package:gdsc_hackathon_project/screens/student/main_screen.dart'
     as student;
-import 'package:provider/provider.dart';
 
 class FetchUserType extends StatelessWidget {
   const FetchUserType({Key? key}) : super(key: key);
@@ -22,10 +21,10 @@ class FetchUserType extends StatelessWidget {
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData) {
-          return LoadingScreen();
+          return const LoadingScreen();
         }
         if (snapshot.data!.data() == null) {
-          return RegisterInfo();
+          return const RegisterInfo();
         }
         user.User currentUser = user.User.fromDoc(snapshot.data);
         if (currentUser.userType == UserType.Student) {

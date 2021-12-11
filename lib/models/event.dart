@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import 'media.dart';
 
@@ -11,7 +9,6 @@ class Event {
   Event(this.id, this.title, this.description, this.startDate, this.endDate,
       this.mediaList);
   factory Event.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
-    print(doc.data()!);
     return Event(
       doc.id,
       doc.data()!['title'],

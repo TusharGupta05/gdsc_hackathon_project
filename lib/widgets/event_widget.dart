@@ -32,7 +32,7 @@ class EventWidget extends StatelessWidget {
                   ),
                 ),
                 PopupMenuButton(
-                    icon: Icon(Icons.more_horiz),
+                    icon: const Icon(Icons.more_horiz),
                     itemBuilder: (_) => [
                           PopupMenuItem(
                             onTap: () {
@@ -40,12 +40,12 @@ class EventWidget extends StatelessWidget {
                                   text:
                                       '${event.title}\n${event.description}'));
                               ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
+                                  .showSnackBar(const SnackBar(
                                 content: Text('Text copied'),
                                 duration: Duration(seconds: 1),
                               ));
                             },
-                            child: Text('Copy Text'),
+                            child: const Text('Copy Text'),
                           ),
                           if (Provider.of<User>(context, listen: false)
                                   .userType ==
@@ -54,8 +54,8 @@ class EventWidget extends StatelessWidget {
                               onTap: () => showDialog(
                                   context: context,
                                   builder: (_) => AlertDialog(
-                                        title: Text('Delete this event?'),
-                                        content: Text(
+                                        title: const Text('Delete this event?'),
+                                        content: const Text(
                                             'Are you sure want to delete this event?'),
                                         actions: [
                                           ElevatedButton(
@@ -65,15 +65,15 @@ class EventWidget extends StatelessWidget {
                                                     .doc(event.id)
                                                     .delete();
                                               },
-                                              child: Text('Delete')),
+                                              child: const Text('Delete')),
                                           ElevatedButton(
                                               onPressed: () async {
                                                 Navigator.of(context).pop();
                                               },
-                                              child: Text('Cancel')),
+                                              child: const Text('Cancel')),
                                         ],
                                       )),
-                              child: Text('Delete this event'),
+                              child: const Text('Delete this event'),
                             ),
                         ]),
               ],

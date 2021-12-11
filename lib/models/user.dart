@@ -14,7 +14,6 @@ class User {
   factory User.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     Map<String, dynamic> data = doc.data() ?? {};
     // if (doc.data() == null) {}
-    print(data);
     return User(
       doc.id,
       data['name'] ?? '',

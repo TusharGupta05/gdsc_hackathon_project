@@ -4,6 +4,7 @@ import 'package:gdsc_hackathon_project/models/form_reply.dart';
 import 'package:gdsc_hackathon_project/models/option.dart';
 import 'package:gdsc_hackathon_project/models/question.dart';
 import 'package:provider/provider.dart';
+import 'package:gdsc_hackathon_project/providers/selector.dart' as selector;
 
 class RadioButtonQuestionView extends StatelessWidget {
   final Question question;
@@ -12,8 +13,8 @@ class RadioButtonQuestionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => SelectedOption(
+    return ChangeNotifierProvider<selector.Selector<Option>>(
+      create: (context) => selector.Selector<Option>(
           Provider.of<FormReply>(context, listen: false).replies[question.id] !=
                   null
               ? question.options.firstWhere((element) =>
@@ -33,7 +34,7 @@ class RadioButtonQuestionView extends StatelessWidget {
                   child: Text(
                       '${question.question} ${question.mandatory ? '*' : ''}'),
                 ),
-                Consumer<SelectedOption>(
+                Consumer<selector.Selector<Option>>(
                   builder: (_, selectedOption, __) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +43,7 @@ class RadioButtonQuestionView extends StatelessWidget {
                         (i) => RadioListTile(
                           title: Text(question.options[i].text),
                           value: question.options[i],
-                          groupValue: selectedOption.option,
+                          groupValue: selectedOption.val,
                           onChanged: Provider.of<FormReply>(context,
                                           listen: false)
                                       .uid ==
@@ -69,14 +70,5 @@ class RadioButtonQuestionView extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class SelectedOption extends ChangeNotifier {
-  Option option = Option('', '');
-  SelectedOption(this.option);
-  void update(Option option) {
-    this.option = option;
-    notifyListeners();
   }
 }

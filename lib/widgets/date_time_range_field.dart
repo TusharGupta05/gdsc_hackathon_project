@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:gdsc_hackathon_project/providers/selector.dart' as selector;
 
 class DateTimeRangePickerField extends StatelessWidget {
   const DateTimeRangePickerField({Key? key, required this.validator})
@@ -9,15 +10,14 @@ class DateTimeRangePickerField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 60,
-      child: Consumer<DateTimeRangeProvider>(
+      child: Consumer<selector.Selector<DateTimeRange>>(
           builder: (_, dateTimeRangeProvider, __) {
-        print(dateTimeRangeProvider.dateTimeRange);
         return TextFormField(
           validator: validator,
           readOnly: true,
           controller: TextEditingController(
             text:
-                'from ${dateTimeRangeProvider.dateTimeRange.start.toString().substring(0, 10)} to ${dateTimeRangeProvider.dateTimeRange.end.toString().substring(0, 10)}',
+                'from ${dateTimeRangeProvider.val.start.toString().substring(0, 10)} to ${dateTimeRangeProvider.val.end.toString().substring(0, 10)}',
           ),
           enabled: true,
           decoration: InputDecoration(
@@ -27,26 +27,14 @@ class DateTimeRangePickerField extends StatelessWidget {
           onTap: () async {
             DateTimeRange? newDateTimeRange = await showDateRangePicker(
               context: context,
-              initialDateRange: dateTimeRangeProvider.dateTimeRange,
+              initialDateRange: dateTimeRangeProvider.val,
               firstDate: DateTime.now(),
               lastDate: DateTime.now().add(const Duration(days: 2000)),
             );
-            print(newDateTimeRange);
             dateTimeRangeProvider.update(newDateTimeRange);
           },
         );
       }),
     );
-  }
-}
-
-class DateTimeRangeProvider extends ChangeNotifier {
-  DateTimeRange dateTimeRange;
-  DateTimeRangeProvider(this.dateTimeRange);
-  void update(DateTimeRange? newDateTimeRange) {
-    if (newDateTimeRange != null) {
-      dateTimeRange = newDateTimeRange;
-      notifyListeners();
-    }
   }
 }

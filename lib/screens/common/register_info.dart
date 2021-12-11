@@ -7,10 +7,9 @@ import 'package:gdsc_hackathon_project/enums/branch.dart';
 import 'package:gdsc_hackathon_project/enums/user_type.dart';
 import 'package:gdsc_hackathon_project/functions/navigation.dart';
 import 'package:gdsc_hackathon_project/models/user.dart' as user;
+import 'package:gdsc_hackathon_project/providers/selector.dart' as selector;
 import 'package:gdsc_hackathon_project/widgets/text_field.dart';
 import 'package:provider/provider.dart';
-
-import 'register_screen.dart';
 
 class RegisterInfo extends StatefulWidget {
   const RegisterInfo({Key? key}) : super(key: key);
@@ -23,8 +22,10 @@ class _RegisterInfoState extends State<RegisterInfo> {
   TextEditingController nameController = TextEditingController();
   TextEditingController schNumController = TextEditingController();
   GlobalKey<FormState> formState = GlobalKey();
-  Selector<Batch> batchSelector = Selector<Batch>(Batch.values.first);
-  Selector<Branch> branchSelector = Selector<Branch>(Branch.values.first);
+  selector.Selector<Batch> batchSelector =
+      selector.Selector<Batch>(Batch.values.first);
+  selector.Selector<Branch> branchSelector =
+      selector.Selector<Branch>(Branch.values.first);
   late user.User currentUser;
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -50,27 +51,28 @@ class _RegisterInfoState extends State<RegisterInfo> {
           }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ChangeNotifierProvider(
-              create: (context) => UserTypeProvider(UserType.Student),
+            child: ChangeNotifierProvider<selector.Selector<UserType>>(
+              create: (context) =>
+                  selector.Selector<UserType>(UserType.Student),
               builder: (ctx, __) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Spacer(),
-                    Spacer(),
+                    const Spacer(),
+                    const Spacer(),
                     Text(
                       'Create Profile',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline3,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Form(
                       key: formState,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: Column(
                           children: [
-                            Consumer<UserTypeProvider>(
+                            Consumer<selector.Selector<UserType>>(
                                 builder: (_, userTypeProvider, __) {
                               return Row(
                                 mainAxisAlignment:
@@ -81,8 +83,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
                                         children: [
                                           Radio(
                                               value: e,
-                                              groupValue:
-                                                  userTypeProvider.userType,
+                                              groupValue: userTypeProvider.val,
                                               onChanged: (_) =>
                                                   userTypeProvider.update(e)),
                                           Text(describeEnum(e)),
@@ -92,35 +93,35 @@ class _RegisterInfoState extends State<RegisterInfo> {
                                     .toList(),
                               );
                             }),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             TextEditingField(
-                              prefix: Icon(Icons.person),
+                              prefix: const Icon(Icons.person),
                               hintText: "Enter your name",
                               controller: nameController,
                               validator: (s) => validateName(s ?? ""),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextEditingField(
                               hintText: "Enter your scholar number",
-                              prefix: Icon(Icons.school),
+                              prefix: const Icon(Icons.school),
                               controller: schNumController,
                               validator: (s) => (s ?? "").isNotEmpty
                                   ? null
                                   : "Invalid scholar number",
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             batchDropDown(),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             branchDropDown(),
                           ],
                         ),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     ElevatedButton(
                         onPressed: () async => await updateProfile(ctx),
-                        child: Text("Save profile")),
-                    Spacer(),
+                        child: const Text("Save profile")),
+                    const Spacer(),
                   ],
                 );
               },
@@ -142,7 +143,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
         schNumController.text,
         batchSelector.val,
         branchSelector.val,
-        Provider.of<UserTypeProvider>(ctx, listen: false).userType);
+        Provider.of<selector.Selector<UserType>>(ctx, listen: false).val);
 
     try {
       FirebaseFirestore.instance
@@ -176,10 +177,10 @@ class _RegisterInfoState extends State<RegisterInfo> {
   }
 
   Widget branchDropDown() {
-    return ChangeNotifierProvider<Selector<Branch>>(
+    return ChangeNotifierProvider<selector.Selector<Branch>>(
         create: (_) => branchSelector,
         builder: (_, __) =>
-            Consumer<Selector<Branch>>(builder: (_, selector, __) {
+            Consumer<selector.Selector<Branch>>(builder: (_, selector, __) {
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
@@ -203,10 +204,10 @@ class _RegisterInfoState extends State<RegisterInfo> {
   }
 
   Widget batchDropDown() {
-    return ChangeNotifierProvider<Selector<Batch>>(
+    return ChangeNotifierProvider<selector.Selector<Batch>>(
         create: (_) => batchSelector,
         builder: (_, __) =>
-            Consumer<Selector<Batch>>(builder: (_, selector, __) {
+            Consumer<selector.Selector<Batch>>(builder: (_, selector, __) {
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
@@ -233,15 +234,5 @@ class _RegisterInfoState extends State<RegisterInfo> {
     return describeEnum(e)
             .replaceRange(0, 1, describeEnum(e).substring(0, 1).toUpperCase()) +
         " Year";
-  }
-}
-
-class Selector<T> with ChangeNotifier {
-  T val;
-  Selector(this.val);
-
-  void update(T val) {
-    this.val = val;
-    notifyListeners();
   }
 }

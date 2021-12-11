@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_hackathon_project/enums/question_type.dart';
 import 'package:gdsc_hackathon_project/functions/helper.dart';
-import 'package:gdsc_hackathon_project/models/option.dart';
 import 'package:gdsc_hackathon_project/models/question.dart';
+import 'package:gdsc_hackathon_project/providers/question_provider.dart';
 import 'package:gdsc_hackathon_project/screens/admin/create_form.dart';
 import 'package:gdsc_hackathon_project/widgets/text_field.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +84,6 @@ class QuestionView extends StatelessWidget {
                 optionTextController.addListener(() {
                   questionProvider.question.options[index - 1].text =
                       optionTextController.text;
-                  print(questionProvider.question.options[index - 1].text);
                 });
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
@@ -107,24 +106,5 @@ class QuestionView extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class QuestionProvider extends ChangeNotifier {
-  Question question;
-  QuestionProvider(this.question);
-  void add() {
-    question.options.add(Option(Helper.timeToString(), ''));
-    notifyListeners();
-  }
-
-  void remove(String id) {
-    question.options.removeWhere((element) => element.id == id);
-    notifyListeners();
-  }
-
-  void toggleMandatory() {
-    question.mandatory = !question.mandatory;
-    notifyListeners();
   }
 }
