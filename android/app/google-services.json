@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "485652886236",
+    "project_id": "iiitb-events",
+    "storage_bucket": "iiitb-events.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485652886236:android:7f7537adea5ddcfea87a19",
+        "android_client_info": {
+          "package_name": "com.example.gdsc_hackathon_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485652886236-h82r5j7bop6r2ht17smkph8haet34g0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv9sEXat3XtLaDoIffLWdxjgE266OejmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485652886236-h82r5j7bop6r2ht17smkph8haet34g0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
