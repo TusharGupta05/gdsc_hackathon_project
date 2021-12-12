@@ -18,24 +18,13 @@ The admins can also create forms with a bunch of questions and they will be able
 
 - Adding some screenshots of the app
 
-<img src="screenshots/login.jpeg" width="150" title="Login Screen"> 
-<img src="screenshots/signup.jpeg" width="150" title="Signup Screen"> 
-<img src="screenshots/create profile.jpeg" width="150" title="Create Profile">
-<img src="screenshots/view events-student.jpeg" width="150" title="View Events"> 
-<img src="screenshots/view forms-student.jpeg" width="150" title="View Forms">
-<img src="screenshots/submit form-1.jpeg" width="150" title="Submit Form">
-<img src="screenshots/submit form-2.jpeg" width="150" title="Submit Form"> 
-<img src="screenshots/edit profile.jpeg" width="150" title="Edit Profile">
-<img src="screenshots/create event-1.jpeg" width="150" title="Create Event">
-<img src="screenshots/create event-2.jpeg" width="150" title="Create Event">
-<img src="screenshots/create form-1.jpeg" width="150" title="Create Form">
-<img src="screenshots/create form-2.jpeg" width="150" title="Create Form">
-<img src="screenshots/submissions info.jpeg" width="150" title="Submissions Info">
-<img src="screenshots/form analyser.jpeg" width="150" title="Form Analyser">
-<img src="screenshots/view submission-1.jpeg" width="150" title="View Submission">
-<img src="screenshots/view submission-2.jpeg" width="150" title="View Submission">
+<img src="screenshots/login.jpeg" width="150" title="Login Screen"> <img src="screenshots/signup.jpeg" width="150" title="Signup Screen"> <img src="screenshots/create profile.jpeg" width="150" title="Create Profile"> <img src="screenshots/view events-student.jpeg" width="150" title="View Events"> 
 
+<img src="screenshots/view forms-student.jpeg" width="150" title="View Forms"> <img src="screenshots/submit form-1.jpeg" width="150" title="Submit Form"> <img src="screenshots/submit form-2.jpeg" width="150" title="Submit Form"> <img src="screenshots/edit profile.jpeg" width="150" title="Edit Profile">
 
+<img src="screenshots/create event-1.jpeg" width="150" title="Create Event"> <img src="screenshots/create event-2.jpeg" width="150" title="Create Event"> <img src="screenshots/create form-1.jpeg" width="150" title="Create Form"> <img src="screenshots/create form-2.jpeg" width="150" title="Create Form">
+
+<img src="screenshots/submissions info.jpeg" width="150" title="Submissions Info"> <img src="screenshots/form analyser.jpeg" width="150" title="Form Analyser"> <img src="screenshots/view submission-1.jpeg" width="150" title="View Submission"> <img src="screenshots/view submission-2.jpeg" width="150" title="View Submission">
 <!-- 
 ## Getting Started
 
