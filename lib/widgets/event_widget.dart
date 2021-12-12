@@ -51,28 +51,35 @@ class EventWidget extends StatelessWidget {
                                   .userType ==
                               UserType.Admin)
                             PopupMenuItem(
-                              onTap: () => showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                        title: const Text('Delete this event?'),
-                                        content: const Text(
-                                            'Are you sure want to delete this event?'),
-                                        actions: [
-                                          ElevatedButton(
-                                              onPressed: () async {
-                                                await FirebaseFirestore.instance
-                                                    .collection('events')
-                                                    .doc(event.id)
-                                                    .delete();
-                                              },
-                                              child: const Text('Delete')),
-                                          ElevatedButton(
-                                              onPressed: () async {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text('Cancel')),
-                                        ],
-                                      )),
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                          title:
+                                              const Text('Delete this event?'),
+                                          content: const Text(
+                                              'Are you sure want to delete this event?'),
+                                          actions: [
+                                            ElevatedButton(
+                                                onPressed: () async {
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection('events')
+                                                      .doc(event.id)
+                                                      .delete();
+                                                },
+                                                child: const Text('Delete')),
+                                            ElevatedButton(
+                                                onPressed: () async {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text('Cancel')),
+                                          ],
+                                        ));
+                                showDialog(
+                                    context: _,
+                                    builder: (_) => const AlertDialog());
+                              },
                               child: const Text('Delete this event'),
                             ),
                         ]),
