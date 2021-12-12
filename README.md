@@ -18,23 +18,4 @@ The admins can also create forms with a bunch of questions and they will be able
 
 - Adding some screenshots of the app
 
-<img src="screenshots/login.jpeg" width="150" title="Login Screen"> <img src="screenshots/signup.jpeg" width="150" title="Signup Screen"> <img src="screenshots/create profile.jpeg" width="150" title="Create Profile"> <img src="screenshots/view events-student.jpeg" width="150" title="View Events"> 
-
-<img src="screenshots/view forms-student.jpeg" width="150" title="View Forms"> <img src="screenshots/submit form-1.jpeg" width="150" title="Submit Form"> <img src="screenshots/submit form-2.jpeg" width="150" title="Submit Form"> <img src="screenshots/edit profile.jpeg" width="150" title="Edit Profile">
-
-<img src="screenshots/create event-1.jpeg" width="150" title="Create Event"> <img src="screenshots/create event-2.jpeg" width="150" title="Create Event"> <img src="screenshots/create form-1.jpeg" width="150" title="Create Form"> <img src="screenshots/create form-2.jpeg" width="150" title="Create Form">
-
-<img src="screenshots/submissions info.jpeg" width="150" title="Submissions Info"> <img src="screenshots/form analyser.jpeg" width="150" title="Form Analyser"> <img src="screenshots/view submission-1.jpeg" width="150" title="View Submission"> <img src="screenshots/view submission-2.jpeg" width="150" title="View Submission">
-<!-- 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference. -->
+<img src="screenshots/login.jpeg" width="150" title="Login Screen"> <img src="screenshots/signup.jpeg" width="150" title="Signup Screen"> <img src="screenshots/create profile.jpeg" width="150" title="Create Profile"> <img src="screenshots/view events-student.jpeg" width="150" title="View Events"> <img src="screenshots/view forms-student.jpeg" width="150" title="View Forms"> <img src="screenshots/submit form-1.jpeg" width="150" title="Submit Form"> <img src="screenshots/submit form-2.jpeg" width="150" title="Submit Form"> <img src="screenshots/edit profile.jpeg" width="150" title="Edit Profile"> <img src="screenshots/create event-1.jpeg" width="150" title="Create Event"> <img src="screenshots/create event-2.jpeg" width="150" title="Create Event"> <img src="screenshots/create form-1.jpeg" width="150" title="Create Form"> <img src="screenshots/create form-2.jpeg" width="150" title="Create Form"> <img src="screenshots/submissions info.jpeg" width="150" title="Submissions Info"> <img src="screenshots/form analyser.jpeg" width="150" title="Form Analyser"> <img src="screenshots/view submission-1.jpeg" width="150" title="View Submission"> <img src="screenshots/view submission-2.jpeg" width="150" title="View Submission">
