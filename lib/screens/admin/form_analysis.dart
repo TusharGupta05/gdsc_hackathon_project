@@ -13,7 +13,7 @@ class FormAnalysis extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Submissions Info'),
+        title: const Text('Replies Analysis'),
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance

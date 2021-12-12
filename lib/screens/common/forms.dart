@@ -35,6 +35,11 @@ class Forms extends StatelessWidget {
           itemCount: forms.length,
           itemBuilder: (_, i) => Card(
             child: ListTile(
+              onLongPress:
+                  Provider.of<user.User>(context, listen: false).userType ==
+                          UserType.Admin
+                      ? () async => await deleteForm(forms[i], context)
+                      : null,
               onTap: () async {
                 // NavigationHelper.push(context, SubmissionsInfo(form: forms[i]));
                 var something = await FirebaseFirestore.instance
@@ -44,8 +49,12 @@ class Forms extends StatelessWidget {
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .get();
                 if (something.exists) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("You have already submitted the form.")));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("You have already submitted the form."),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
                 } else {
                   final user.User currentUser =
                       // context.watch<user.User>();
@@ -59,7 +68,9 @@ class Forms extends StatelessWidget {
                 }
                 // NavigationHelper.push(context, SubmitForm(form: forms[i]));
               },
-              title: Text(forms[i].title),
+              title: Text(forms[i].title,
+                  style: TextStyle(overflow: TextOverflow.ellipsis),
+                  maxLines: 1),
               subtitle: Text(
                 'Deadline: ${forms[i].endDate.toString().substring(0, 10)}',
                 style: const TextStyle(fontSize: 12),
@@ -68,6 +79,37 @@ class Forms extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Future<void> deleteForm(frm.Form form, context) async {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text(
+          'Delete',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        content: const Text('Are you sure want to delete this form?'),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              await FirebaseFirestore.instance
+                  .collection('forms')
+                  .doc(form.id)
+                  .delete();
+              Navigator.of(context).pop();
+            },
+            child: const Text('Delete'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
     );
   }
 }

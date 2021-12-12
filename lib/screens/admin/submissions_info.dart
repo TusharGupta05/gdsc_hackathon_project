@@ -24,7 +24,7 @@ class SubmissionsInfo extends StatelessWidget {
               onPressed: () {
                 NavigationHelper.push(context, FormAnalysis(form: form));
               },
-              icon: const Icon(Icons.bar_chart))
+              icon: const Icon(Icons.pie_chart_sharp))
         ],
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(

@@ -30,17 +30,18 @@ class _CreateEventState extends State<CreateEvent> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => MediaList<PlatformFile>([])),
-          ChangeNotifierProvider<selector.Selector<DateTimeRange>>(
-              create: (_) => selector.Selector<DateTimeRange>(DateTimeRange(
-                  start: DateTime.now(),
-                  end: DateTime.now().add(const Duration(days: 2))))),
-        ],
-        builder: (_, __) {
-          return Builder(builder: (context) {
+      providers: [
+        ChangeNotifierProvider(create: (_) => MediaList<PlatformFile>([])),
+        ChangeNotifierProvider<selector.Selector<DateTimeRange>>(
+            create: (_) => selector.Selector<DateTimeRange>(DateTimeRange(
+                start: DateTime.now(),
+                end: DateTime.now().add(const Duration(days: 2))))),
+      ],
+      builder: (_, __) {
+        return Builder(
+          builder: (context) {
             return Scaffold(
-              resizeToAvoidBottomInset: false,
+              resizeToAvoidBottomInset: true,
               appBar: AppBar(
                 title: const Text('Create an event'),
                 actions: [
@@ -49,41 +50,54 @@ class _CreateEventState extends State<CreateEvent> {
                       icon: const Icon(Icons.done))
                 ],
               ),
-              body: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                children: [
-                  const SizedBox(height: 20),
-                  Form(
-                      key: formState,
-                      child: DateTimeRangePickerField(validator: (_) => null)),
-                  const SizedBox(height: 20),
-                  TextEditingField(
-                    hintText: "Title",
-                    controller: titleController,
-                    maxLines: null,
-                    borderRadius: 15,
+              body: Scrollbar(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        Form(
+                            key: formState,
+                            child: DateTimeRangePickerField(
+                                validator: (_) => null)),
+                        const SizedBox(height: 20),
+                        TextEditingField(
+                          hintText: "Title*",
+                          controller: titleController,
+                          maxLines: null,
+                          borderRadius: 15,
+                        ),
+                        const SizedBox(height: 20),
+                        TextEditingField(
+                          hintText: "Description*",
+                          controller: descriptionController,
+                          borderRadius: 15,
+                          maxLines: null,
+                          minLines: 8,
+                        ),
+                        // const Spacer(),
+                        const SizedBox(height: 20),
+                        const Align(
+                            alignment: Alignment.bottomCenter,
+                            child: _MediaPreview()),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 20),
-                  TextEditingField(
-                    hintText: "Description",
-                    controller: descriptionController,
-                    borderRadius: 15,
-                    maxLines: null,
-                    minLines: 8,
-                  ),
-                  const Spacer(),
-                  const Align(
-                      alignment: Alignment.bottomCenter,
-                      child: _MediaPreview()),
-                ],
+                ),
               ),
             );
-          });
-        });
+          },
+        );
+      },
+    );
   }
 
   Future<void> addEvent(BuildContext ctx) async {
     if (!formState.currentState!.validate()) {
+      return;
+    }
+    if (titleController.text.isEmpty || descriptionController.text.isEmpty) {
       return;
     }
     try {
