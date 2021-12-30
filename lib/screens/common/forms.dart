@@ -27,10 +27,13 @@ class Forms extends StatelessWidget {
           return const Center(child: Text('No forms to show!'));
         }
         List<frm.Form> forms = docs.map((e) => frm.Form.fromDoc(e)).toList();
-
+        
         forms.removeWhere((element) =>
             DateTime.now().isAfter(element.endDate) ||
             DateTime.now().isBefore(element.startDate));
+        if (forms.isEmpty) {
+          return const Center(child: Text('No forms to show!'));
+        }
         return ListView.builder(
           itemCount: forms.length,
           itemBuilder: (_, i) => Card(
